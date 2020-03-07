@@ -18,11 +18,11 @@ steps:
 
 - task: MSBuild@1
   inputs:
-    solution: '**/*.sln'
+    solution: './spkl/spkl.csproj'
     configuration: 'release'
 
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
-    packagesToPack: '**/spkl/spkl/Package/spkl.nuspec'
+    packagesToPack: './spkl/Package/spkl.nuspec'
     versioningScheme: 'off'
