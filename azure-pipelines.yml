@@ -16,14 +16,30 @@ steps:
     restoreSolution: '**/*.sln'
     feedsToUse: 'select'
 
+#Build spkl project
 - task: MSBuild@1
   inputs:
     solution: './spkl/spkl/spkl.csproj'
     platform: 'AnyCPU'
     configuration: 'Release'
 
+#Pack Nuget package
 - task: NuGetCommand@2
   inputs:
     command: 'pack'
     packagesToPack: './spkl/spkl/Package/spkl.nuspec'
     versioningScheme: 'off'
+
+#Publish the build artifacts.
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'drop'
+    publishLocation: 'Container'
+
+- task: NuGetCommand@2
+  inputs:
+    command: 'push'
+    packagesToPush: '$(Build.ArtifactStagingDirectory)/**/*.nupkg;!$(Build.ArtifactStagingDirectory)/**/*.symbols.nupkg'
+    nuGetFeedType: 'internal'
+    publishVstsFeed: '13c69300-ec34-4777-a161-9bbed48ed60a'
