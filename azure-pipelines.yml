@@ -19,7 +19,7 @@ steps:
 - task: MSBuild@1
   inputs:
     solution: './spkl/spkl/spkl.csproj'
-    platform: 'x86'
+    platform: 'AnyCPU'
     configuration: 'Release'
 
 - task: NuGetCommand@2
