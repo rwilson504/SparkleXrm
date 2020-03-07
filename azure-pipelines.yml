@@ -3,8 +3,8 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-- none
+trigger: none
+pr: none
 
 pool:
   vmImage: 'vs2017-win2016'
